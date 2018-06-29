@@ -60,6 +60,14 @@
 #define BL_CONFIG_USB_MSC (0)
 #endif
 
+#if !defined(BL_CONFIG_USB_CDC)
+#define BL_CONFIG_USB_CDC (0)
+#endif
+
+#if !defined(BL_CONFIG_HS_USB_CDC)
+#define BL_CONFIG_HS_USB_CDC (0)
+#endif
+
 #if !defined(BL_CONFIG_HS_USB_HID)
 #define BL_CONFIG_HS_USB_HID (1) // For TOWER and FRDM boards
 #endif
