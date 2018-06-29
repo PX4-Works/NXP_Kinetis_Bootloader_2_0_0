@@ -97,6 +97,9 @@ extern "C" {
 #define DISABLE_WDOG 1
 #endif
 
+#if defined(TARGET_HW_NXPHLITE_V3)
+#define CLOCK_SETUP 6
+#endif
 #ifndef CLOCK_SETUP
 #if (TOWER || FREEDOM)
 #define CLOCK_SETUP 4
@@ -151,7 +154,7 @@ extern "C" {
 /* Define clock source values */
 #ifndef CPU_XTAL_CLK_HZ
 #define CPU_XTAL_CLK_HZ \
-    12000000U /* Value of the external crystal or oscillator clock frequency of the system oscillator (OSC) in Hz */
+    16000000U /* Value of the external crystal or oscillator clock frequency of the system oscillator (OSC) in Hz */
 #endif
 #ifndef CPU_XTAL32k_CLK_HZ
 #define CPU_XTAL32k_CLK_HZ                                                                       \
@@ -173,8 +176,8 @@ extern "C" {
 #define SYSTEM_RTC_CR_VALUE 0x0300U /* RTC_CR */
 
 /* Low power mode enable */
-/* SMC_PMPROT: AHSRUN=1,AVLP=1,ALLS=1,AVLLS=1 */
-#define SYSTEM_SMC_PMPROT_VALUE 0xAAU /* SMC_PMPROT */
+/* SMC_PMPROT: AHSRUN=0,AVLP=1,ALLS=1,AVLLS=1 */
+#define SYSTEM_SMC_PMPROT_VALUE 0x2AU /* SMC_PMPROT */
 
 /* Internal reference clock trim */
 /* #undef SLOW_TRIM_ADDRESS */      /* Slow oscillator not trimmed. Commented out for MISRA compliance. */
@@ -394,6 +397,28 @@ extern "C" {
 /* SIM_CLKDIV3: PLLFLLDIV=0,PLLFLLFRAC=0 */
 #define SYSTEM_SIM_CLKDIV3_VALUE 0x00U /* SIM_CLKDIV3 */
 /* SIM_SOPT1: USBREGEN=0,USBSSTBY=0,USBVSTBY=0,OSC32KSEL=2,RAMSIZE=0 */
+#define SYSTEM_SIM_SOPT1_VALUE 0x00080000U /* SIM_SOPT1 */
+/* SIM_SOPT2:
+ * SDHCSRC=0,LPUARTSRC=0,TPMSRC=1,TIMESRC=0,RMIISRC=0,USBSRC=0,PLLFLLSEL=1,TRACECLKSEL=0,FBSL=0,CLKOUTSEL=0,RTCCLKOUTSEL=0,USBREGEN=0,USBSLSRC=0
+ */
+#define SYSTEM_SIM_SOPT2_VALUE 0x01010000U /* SIM_SOPT2 */
+#elif(CLOCK_SETUP == 6)
+#define DEFAULT_SYSTEM_CLOCK 120000000U /* Default System clock value */
+#define MCG_MODE MCG_MODE_PEE      /* Clock generator mode */
+#define SYSTEM_MCG_C1_VALUE 0x02U  /* MCG_C1 */
+#define SYSTEM_MCG_C2_VALUE 0x24U  /* MCG_C2 */
+#define SYSTEM_MCG_C4_VALUE 0x00U  /* MCG_C4 */
+#define SYSTEM_MCG_SC_VALUE 0x02U  /* MCG_SC */
+#define SYSTEM_MCG_C5_VALUE 0x01U  /* MCG_C5 */
+#define SYSTEM_MCG_C6_VALUE 0x4EU  /* MCG_C6 */
+#define SYSTEM_MCG_C7_VALUE 0x00U  /* MCG_C7 */
+#define SYSTEM_MCG_C9_VALUE 0x00U  /* MCG_C9 */
+#define SYSTEM_MCG_C11_VALUE 0x00U /* MCG_C11 */
+#define SYSTEM_OSC_CR_VALUE 0x80U  /* OSC_CR */
+#define SYSTEM_SMC_PMCTRL_VALUE 0x00U /* SMC_PMCTRL */
+#define SYSTEM_SIM_CLKDIV1_VALUE 0x01140000U /* SIM_CLKDIV1 */
+#define SYSTEM_SIM_CLKDIV2_VALUE 0x00U       /* SIM_CLKDIV2 */
+#define SYSTEM_SIM_CLKDIV3_VALUE 0x00U /* SIM_CLKDIV3 */
 #define SYSTEM_SIM_SOPT1_VALUE 0x00080000U /* SIM_SOPT1 */
 /* SIM_SOPT2:
  * SDHCSRC=0,LPUARTSRC=0,TPMSRC=1,TIMESRC=0,RMIISRC=0,USBSRC=0,PLLFLLSEL=1,TRACECLKSEL=0,FBSL=0,CLKOUTSEL=0,RTCCLKOUTSEL=0,USBREGEN=0,USBSLSRC=0
