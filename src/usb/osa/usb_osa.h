@@ -41,10 +41,13 @@
  ******************************************************************************/
 
 /*! @brief Define big endian */
+#if !defined(BIG_ENDIAN)
 #define BIG_ENDIAN (0U)
+#endif
 /*! @brief Define little endian */
+#if !defined(LITTLE_ENDIAN)
 #define LITTLE_ENDIAN (1U)
-
+#endif
 /*! @brief Define current endian */
 #define ENDIANNESS LITTLE_ENDIAN
 
