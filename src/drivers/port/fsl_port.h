@@ -231,13 +231,13 @@ static inline void PORT_SetMultiplePinsConfig(PORT_Type *base, uint32_t mask, co
 
     uint16_t PCRL = *((const uint16_t *)config);
 
-    if (mask & 0xffffU)
+    if (mask & 0x0000ffffU)
     {
-        base->GPCLR = (mask & 0xffffU) | PCRL;
+        base->GPCLR = (mask & 0x0000ffffU) << 16 | PCRL;
     }
-    if (mask >> 16)
+    if (mask & 0xffff0000U)
     {
-        base->GPCHR = (mask >> 16) | PCRL;
+        base->GPCHR = (mask & 0xffff0000U) | PCRL;
     }
 }
 
