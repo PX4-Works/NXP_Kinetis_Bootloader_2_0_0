@@ -97,7 +97,7 @@ extern "C" {
 #define DISABLE_WDOG 1
 #endif
 
-#if defined(TARGET_HW_NXPHLITE_V3)
+#if defined(TARGET_HW_FMUK66_V3)
 #define CLOCK_SETUP 6
 #endif
 #ifndef CLOCK_SETUP
